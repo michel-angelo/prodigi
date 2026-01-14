@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesin Cuan Otomatis 2026</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <style>
+      :root {
+        --primary: #059669; /* Emerald Green */
+        --dark: #0f172a;
+        --gold: #f59e0b;
+        --red: #dc2626;
+        --bg: #f8fafc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: #333;
+        padding-bottom: 100px;
+        overflow-x: hidden;
+      }
+
+      /* === URGENCY HEADER === */
+      .urgent-bar {
+        background: var(--red);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        align-items: center;
+      }
+      .urgent-timer {
+        background: #000;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: var(--gold);
+        font-family: monospace;
+      }
+
+      /* === HERO SECTION (KOLAM UANG) === */
+      .hero {
+        background: linear-gradient(180deg, #064e3b 0%, #047857 100%);
+        color: white;
+        padding: 50px 20px 80px;
+        text-align: center;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Background Pattern Uang Samar */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      .badge-new {
+        background: var(--gold);
+        color: #78350f;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 12px;
+        display: inline-block;
+        margin-bottom: 20px;
+        box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+        animation: pulse 2s infinite;
+      }
+
+      h1 {
+        font-family: "Oswald", sans-serif;
+        font-size: 32px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        margin: 0 0 15px;
+        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      .text-yellow {
+        color: var(--gold);
+        text-decoration: underline;
+        text-decoration-color: var(--gold);
+      }
+
+      /* === LIVE STOCK BAR === */
+      .stock-wrapper {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 15px;
+        border-radius: 15px;
+        max-width: 400px;
+        margin: 20px auto;
+        text-align: left;
+      }
+      .stock-label {
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        color: #cbd5e1;
+      }
+      .progress-container {
+        background: #334155;
+        height: 12px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #ef4444, #f87171);
+        width: 80%;
+        border-radius: 10px;
+        transition: width 0.5s;
+      }
+
+      /* === MOCKUP HP INTERAKTIF === */
+      .phone-mockup {
+        width: 260px;
+        background: #fff;
+        border: 12px solid #1e293b;
+        border-radius: 35px;
+        margin: 0 auto -120px;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        height: 450px;
+      }
+      .notch {
+        width: 50%;
+        height: 20px;
+        background: #1e293b;
+        position: absolute;
+        top: 0;
+        left: 25%;
+        border-radius: 0 0 15px 15px;
+        z-index: 20;
+      }
+      .screen {
+        background: #f1f5f9;
+        height: 100%;
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .notif-card {
+        background: white;
+        width: 90%;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        animation: slideInUp 0.5s ease-out;
+      }
+      .notif-icon {
+        width: 35px;
+        height: 35px;
+        background: #dcfce7;
+        border-radius: 8px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+
+      /* === MAIN CONTENT === */
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 140px 20px 40px;
+        position: relative;
+      }
+
+      .pain-box {
+        background: #fff;
+        border-left: 5px solid var(--red);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+      .pain-item {
+        margin-bottom: 10px;
+        font-size: 15px;
+        display: flex;
+        align-items: start;
+        gap: 10px;
+      }
+
+      /* === COMPARISON TABLE (KILLER FEATURE) === */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .comparison-table th {
+        padding: 15px;
+        font-family: "Oswald";
+        font-size: 18px;
+      }
+      .comparison-table td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        font-size: 14px;
+      }
+      .th-bad {
+        background: #f1f5f9;
+        color: #64748b;
+        width: 40%;
+      }
+      .th-good {
+        background: var(--primary);
+        color: white;
+        width: 60%;
+        position: relative;
+      }
+      .th-good::after {
+        content: "RECOMMENDED";
+        position: absolute;
+        top: -5px;
+        right: 50%;
+        transform: translateX(50%);
+        background: var(--gold);
+        color: black;
+        font-size: 8px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      /* === PRICING === */
+      .price-box {
+        background: linear-gradient(135deg, #fffbeb 0%, #fff 100%);
+        border: 3px solid var(--gold);
+        border-radius: 20px;
+        text-align: center;
+        padding: 40px 20px;
+        margin: 40px 0;
+        position: relative;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .discount-tag {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--red);
+        color: white;
+        padding: 8px 25px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 14px;
+        box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4);
+      }
+      .price-slash {
+        text-decoration: line-through;
+        color: #94a3b8;
+        font-size: 18px;
+      }
+      .price-main {
+        font-family: "Oswald";
+        font-size: 56px;
+        color: var(--primary);
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px 0;
+      }
+
+      /* === FAQ === */
+      details {
+        background: white;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #eee;
+      }
+      summary {
+        font-weight: bold;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      summary::after {
+        content: "+";
+        font-size: 20px;
+        color: var(--primary);
+      }
+      details[open] summary::after {
+        content: "-";
+      }
+
+      /* === STICKY CTA === */
+      .sticky-footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 15px;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        border-top: 3px solid var(--gold);
+      }
+      .btn-buy {
+        display: block;
+        width: 100%;
+        background: linear-gradient(to right, #f59e0b, #d97706);
+        color: white;
+        font-family: "Oswald";
+        font-size: 22px;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+        animation: pulse-btn 2s infinite;
+      }
+
+      /* === FAKE SALES POPUP === */
+      .sales-popup {
+        position: fixed;
+        bottom: 100px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 15px;
+        border-radius: 50px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #e2e8f0;
+        transform: translateX(-150%);
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 900;
+        backdrop-filter: blur(4px);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes pulse-btn {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="urgent-bar">
+      <span>⚠️ FLASH SALE BERAKHIR:</span>
+      <span class="urgent-timer" id="timer">14:59</span>
+    </div>
+
+    <div class="hero">
+      <div class="badge-new animate__animated animate__bounceIn">
+        🔥 SOLUSI GAPTEK 2026
+      </div>
+      <h1 class="animate__animated animate__fadeInUp">
+        Ubah HP Jadi <span class="text-yellow">Mesin ATM</span> Tanpa Stok
+        Barang!
+      </h1>
+      <p
+        class="animate__animated animate__fadeInUp animate__delay-1s"
+        style="opacity: 0.9; font-size: 16px"
+      >
+        Copy-Paste ribuan produk laris, sistem otomatis yang bekerja untuk Anda.
+      </p>
+
+      <div
+        class="stock-wrapper animate__animated animate__fadeInUp animate__delay-1s"
+      >
+        <div class="stock-label">
+          <span>🔥 Sedang dipesan: <b>142 Orang</b></span>
+          <span style="color: var(--gold)"
+            >Sisa Slot: <b id="slotCount">7</b></span
+          >
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div
+        class="phone-mockup animate__animated animate__slideInUp animate__delay-1s"
+      >
+        <div class="notch"></div>
+        <div class="screen" id="notifScreen"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="pain-box">
+        <h3 style="color: var(--red); margin-top: 0; font-family: 'Oswald'">
+          🛑 STOP BUANG KUOTA!
+        </h3>
+        <div class="pain-item">
+          <i
+            class="fas fa-times-circle"
+            style="color: var(--red); margin-top: 3px"
+          ></i>
+          Bingung mau jualan apa?
+        </div>
+        <div class="pain-item">
+          <i
+            class="fas fa-times-circle"
+            style="color: var(--red); margin-top: 3px"
+          ></i>
+          Gak bisa bikin kata-kata promosi?
+        </div>
+        <div class="pain-item">
+          <i
+            class="fas fa-times-circle"
+            style="color: var(--red); margin-top: 3px"
+          ></i>
+          Takut rugi stok barang numpuk?
+        </div>
+      </div>
+
+      <h2 style="text-align: center; font-family: 'Oswald'">
+        KENAPA HARUS ALAT INI?
+      </h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="th-bad">CARA LAMA</th>
+            <th class="th-good">ALAT INI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stok Barang Sendiri (Modal Besar)</td>
+            <td><b>Tanpa Stok</b> (Dropship Aman)</td>
+          </tr>
+          <tr>
+            <td>Pusing Mikir Caption</td>
+            <td><b>Caption Otomatis</b> (1 Klik)</td>
+          </tr>
+          <tr>
+            <td>Nyari Supplier Susah</td>
+            <td><b>6000+ Database</b> Supplier</td>
+          </tr>
+          <tr>
+            <td>Boncos Iklan</td>
+            <td><b>Gratisan</b> via WA Story</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="price-box" id="harga">
+        <div class="discount-tag">DISKON 80% HARI INI</div>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 5px">
+          Investasi Sekali Seumur Hidup
+        </p>
+        <div class="price-slash">Rp 499.000</div>
+        <div class="price-main">Rp 99.000</div>
+
+        <ul
+          style="
+            text-align: left;
+            font-size: 14px;
+            margin-top: 20px;
+            color: #334155;
+            line-height: 1.8;
+          "
+        >
+          <li>✅ Akses Web App Premium</li>
+          <li>✅ 6000+ Database Produk Laris</li>
+          <li>✅ <b>BONUS:</b> 1500+ Video Mentahan</li>
+          <li>✅ <b>GARANSI:</b> Uang Kembali jika Error</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom: 30px">
+        <h3 style="font-family: 'Oswald'">PERTANYAAN UMUM</h3>
+        <details>
+          <summary>Saya gaptek, apa bisa pakai?</summary>
+          <p style="font-size: 14px; color: #555; margin-top: 10px">
+            Sangat bisa! Desain kami dibuat khusus untuk pemula. Tinggal
+            klik-klik saja.
+          </p>
+        </details>
+        <details>
+          <summary>Apakah harus stok barang?</summary>
+          <p style="font-size: 14px; color: #555; margin-top: 10px">
+            TIDAK PERLU. Anda terima uang dari pembeli dulu, baru order ke
+            supplier.
+          </p>
+        </details>
+        <details>
+          <summary>Cara belinya gimana?</summary>
+          <p style="font-size: 14px; color: #555; margin-top: 10px">
+            Klik tombol "AMBIL PROMO" di bawah, Anda akan diarahkan ke WhatsApp
+            Admin untuk pembayaran aman.
+          </p>
+        </details>
+      </div>
+
+      <div style="text-align: center; font-size: 12px; color: #94a3b8">
+        &copy; 2026 Affiliate Cuan Generator.<br />Protected by @faset.digital
+      </div>
+    </div>
+
+    <div class="sticky-footer">
+      <a
+        href="https://wa.me/6281385042303?text=Halo%20Admin,%20saya%20mau%20AMANKAN%20SLOT%20PROMO%2099rb%20sebelum%20habis!"
+        class="btn-buy"
+      >
+        AMBIL PROMO SEKARANG <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="sales-popup" id="salesPopup">
+      <div
+        style="
+          width: 35px;
+          height: 35px;
+          background: var(--primary);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+        "
+      >
+        <i class="fas fa-check"></i>
+      </div>
+      <div style="font-size: 12px; line-height: 1.2">
+        <b>0813-xxxx-9821</b><br />
+        Baru saja transfer Rp 99.000
+      </div>
+    </div>
+
+    <script>
+      // === 1. LOGIC TIMER MUNDUR ===
+      function startTimer(duration, display) {
+        var timer = duration,
+          minutes,
+          seconds;
+        setInterval(function () {
+          minutes = parseInt(timer / 60, 10);
+          seconds = parseInt(timer % 60, 10);
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+          display.textContent = minutes + ":" + seconds;
+          if (--timer < 0) timer = duration;
+        }, 1000);
+      }
+      startTimer(15 * 60, document.querySelector("#timer"));
+
+      // === 2. LOGIC STOCK BAR BERKURANG ===
+      let slots = 7;
+      const slotEl = document.getElementById("slotCount");
+      const barEl = document.getElementById("progressBar");
+
+      setInterval(() => {
+        if (slots > 2) {
+          // Jangan sampe 0 biar tetep ada harapan
+          if (Math.random() > 0.6) {
+            // Random chance reduce
+            slots--;
+            slotEl.innerText = slots;
+            slotEl.style.color = "red";
+            // Update lebar bar
+            let percent = (slots / 20) * 100; // Asumsi awal 20 slot
+            barEl.style.width = percent + "%";
+          }
+        }
+      }, 5000);
+
+      // === 3. ANIMASI HP NOTIFIKASI ===
+      const screen = document.getElementById("notifScreen");
+      const notifs = [
+        "💰 Komisi Masuk: Rp 35.000",
+        "📦 Paket Dikirim",
+        "🔥 Pesanan Baru: Jam Tangan",
+        "💰 Komisi Masuk: Rp 50.000",
+        "🚀 10 Orang melihat produkmu",
+      ];
+
+      function addNotif() {
+        const text = notifs[Math.floor(Math.random() * notifs.length)];
+        const el = document.createElement("div");
+        el.className = "notif-card animate__animated animate__fadeInUp";
+        el.innerHTML = `<div class="notif-icon"><i class="fas fa-bell"></i></div><div style="font-size:12px; font-weight:600;">${text}</div>`;
+        screen.prepend(el);
+
+        if (screen.children.length > 4) screen.lastElementChild.remove();
+      }
+      setInterval(addNotif, 2500);
+
+      // === 4. SALES POPUP ===
+      const popup = document.getElementById("salesPopup");
+      setInterval(() => {
+        // Generate nomor HP sensor
+        const hp =
+          "08" +
+          Math.floor(Math.random() * 99) +
+          "-xxxx-" +
+          Math.floor(1000 + Math.random() * 9000);
+        popup.innerHTML = `
+                <div style="width:35px; height:35px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white;"><i class="fas fa-check"></i></div>
+                <div style="font-size:12px; line-height:1.2;">
+                    <b>${hp}</b><br>
+                    Baru saja transfer Rp 99.000
+                </div>
+            `;
+        popup.style.transform = "translateX(0)";
+        setTimeout(() => {
+          popup.style.transform = "translateX(-150%)";
+        }, 4000);
+      }, 7000);
+    </script>
+  </body>
+</html>
