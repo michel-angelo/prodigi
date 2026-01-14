@@ -3,37 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Affiliate Cuan Generator 2026</title>
+    <title>Affiliate Cuan Generator Pro</title>
 
+    <!-- LOAD DATABASE -->
     <script src="data_supplier.js"></script>
     <script src="data_konten.js"></script>
 
     <style>
-      /* === RESET & VARIABLES === */
+      /* === VARIABLES & RESET === */
+      :root {
+        --primary: #059669;
+        --primary-dark: #047857;
+        --primary-light: #10b981;
+        --bg-body: #f3f4f6;
+        --text-dark: #111827;
+        --text-grey: #6b7280;
+        --tiktok: #000000;
+        --shopee: #ee4d2d;
+        --wa: #25d366;
+        --blue-link: #2563eb;
+        --blue-light: #eff6ff;
+      }
       * {
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
         outline: none;
       }
 
-      :root {
-        --primary: #059669;
-        --primary-light: #10b981;
-        --bg-body: #f3f4f6;
-        --text-dark: #111827;
-        --tiktok: #000000;
-        --shopee: #ee4d2d;
-        --wa: #25d366;
-      }
-
       body {
-        font-family: "Inter", sans-serif;
-        background: var(--bg-body);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: var(--bg-body);
         margin: 0;
         color: var(--text-dark);
+        width: 100%;
         overflow-x: hidden;
       }
 
+      /* === PENGAMAN (HIDDEN BY DEFAULT) === */
       #main-app {
         display: none;
       }
@@ -49,9 +55,11 @@
         padding: 25px 20px 60px;
         border-bottom-left-radius: 35px;
         border-bottom-right-radius: 35px;
-        text-align: center;
         box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        text-align: center;
+        position: relative;
       }
+
       .wa-input-wrapper {
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.3);
@@ -77,16 +85,20 @@
       .btn-panduan {
         background: rgba(0, 0, 0, 0.2);
         color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         padding: 8px 15px;
         border-radius: 20px;
         font-size: 12px;
         cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        margin-top: 10px;
+        margin-top: 12px;
         display: inline-block;
+        transition: background 0.3s;
+      }
+      .btn-panduan:active {
+        background: rgba(0, 0, 0, 0.4);
       }
 
-      /* SEARCH */
+      /* === SEARCH & LIST === */
       .search-container {
         padding: 0 20px;
         margin-top: -30px;
@@ -101,15 +113,16 @@
         display: flex;
         align-items: center;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        border: 2px solid white;
       }
       .search-box input {
         border: none;
         width: 100%;
         padding: 12px 0;
         font-size: 16px;
+        color: #333;
       }
 
-      /* LIST PRODUK */
       .container {
         padding: 20px;
         padding-bottom: 100px;
@@ -120,20 +133,21 @@
         display: grid;
         gap: 15px;
       }
+
       .card {
         background: white;
         padding: 20px;
         border-radius: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
         border: 1px solid rgba(0, 0, 0, 0.03);
+        display: flex;
+        flex-direction: column;
       }
       .card h3 {
         font-size: 16px;
+        font-weight: 700;
         margin: 0 0 10px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        line-height: 1.4;
       }
       .meta-row {
         display: flex;
@@ -157,9 +171,10 @@
         font-weight: bold;
         cursor: pointer;
         width: 100%;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
       }
 
-      /* MODAL */
+      /* === MODAL GENERATOR === */
       .modal {
         display: none;
         position: fixed;
@@ -196,28 +211,24 @@
         }
       }
 
-      /* TAB SWITCHER KEREN */
+      /* TABS */
       .tab-container {
         display: flex;
         background: #f1f5f9;
         padding: 5px;
         border-radius: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
       }
       .tab-btn {
         flex: 1;
         padding: 10px 5px;
         text-align: center;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: bold;
         border-radius: 10px;
         cursor: pointer;
         color: #64748b;
         transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
       }
       .tab-btn.active.wa {
         background: white;
@@ -235,7 +246,6 @@
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       }
 
-      /* TIPS BOX */
       .tips-box {
         padding: 12px;
         border-radius: 10px;
@@ -246,7 +256,6 @@
         gap: 10px;
         line-height: 1.4;
       }
-
       .copy-area {
         background: #f8fafc;
         border: 1px dashed #cbd5e1;
@@ -259,6 +268,7 @@
         white-space: pre-wrap;
       }
 
+      /* ACTION BUTTONS */
       .btn-action {
         display: block;
         width: 100%;
@@ -267,9 +277,10 @@
         border-radius: 10px;
         text-align: center;
         font-weight: bold;
-        text-decoration: none;
         font-size: 13px;
         cursor: pointer;
+        text-decoration: none;
+        border: none;
       }
       .btn-copy {
         background: #fef08a;
@@ -279,25 +290,96 @@
       .btn-supplier {
         background: var(--primary);
         color: white;
-        border: none;
       }
       .btn-shopee {
         background: var(--shopee);
         color: white;
-        border: none;
       }
       .btn-tiktok {
         background: var(--tiktok);
         color: white;
-        border: none;
       }
 
-      /* SCREEN BLOKIR */
+      /* === MODAL PANDUAN & UPSELL === */
+      .accordion {
+        background-color: #f9f9f9;
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 14px;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+      }
+      .accordion:after {
+        content: "+";
+        font-weight: bold;
+      }
+      .accordion.active:after {
+        content: "-";
+      }
+
+      .panel {
+        padding: 0 15px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        font-size: 13px;
+        color: #555;
+      }
+
+      /* BOX JUALAN EBOOK (INI PENTING) */
+      .upsell-box {
+        background: var(--blue-light);
+        border: 1px dashed var(--blue-link);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        text-align: center;
+        display: block !important;
+      }
+      .upsell-title {
+        font-size: 12px;
+        color: #1e40af;
+        margin-bottom: 8px;
+        display: block;
+      }
+      .btn-ebook {
+        background: var(--blue-link);
+        color: white;
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 13px;
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+      }
+      .btn-ebook span {
+        background: #fbbf24;
+        color: #92400e;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+
+      /* === SCREEN BLOKIR === */
       #blocked-screen {
         display: none;
         text-align: center;
         padding: 60px 20px;
         color: #333;
+        max-width: 400px;
+        margin: 0 auto;
       }
       .btn-beli-akses {
         display: block;
@@ -327,7 +409,7 @@
       #toast {
         visibility: hidden;
         min-width: 200px;
-        background-color: #333;
+        background-color: #111;
         color: #fff;
         text-align: center;
         border-radius: 50px;
@@ -364,38 +446,28 @@
         }
       }
 
-      /* PANDUAN MODAL */
-      .accordion {
-        background-color: #f9f9f9;
-        cursor: pointer;
-        padding: 15px;
-        width: 100%;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 14px;
-        border-radius: 10px;
-        margin-bottom: 5px;
-        font-weight: bold;
+      /* FOOTER BRAND */
+      .footer-brand {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 12px;
+        color: var(--text-grey);
       }
-      .panel {
-        padding: 0 15px;
-        background-color: white;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.2s ease-out;
-        font-size: 13px;
-        color: #555;
+      .footer-brand a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
+    <!-- SCREEN BLOKIR -->
     <div id="blocked-screen">
       <h1 style="font-size: 60px; margin: 0">⛔</h1>
       <h2>AKSES DITOLAK</h2>
-      <p>Masukkan kode akses premium atau beli sekarang.</p>
+      <p>Maaf, ini area PREMIUM. Masukkan kode akses atau beli sekarang.</p>
       <a
-        href="https://wa.me/6281385042303?text=Halo%20Admin,%20mau%20beli%20akses%20Affiliate%20Generator."
+        href="https://wa.me/6281385042303?text=Halo%20Admin,%20mau%20beli%20akses%20Affiliate%20Generator%2099rb."
         class="btn-beli-akses"
         >🔓 BELI KODE AKSES</a
       >
@@ -414,11 +486,12 @@
       </button>
     </div>
 
+    <!-- MAIN APP -->
     <div id="main-app">
       <div class="header">
-        <h1 style="margin: 0; font-size: 22px">💸 Affiliate Generator</h1>
+        <h1 style="margin: 0; font-size: 22px">💸 Affiliate Cuan Gen</h1>
         <p style="margin: 5px 0 15px; opacity: 0.9; font-size: 13px">
-          Alat Bantu Cari Cuan 2026
+          Tools Pencari Cuan Halal 2026
         </p>
 
         <div class="wa-input-wrapper">
@@ -440,7 +513,7 @@
           <input
             type="text"
             id="searchInput"
-            placeholder="Cari barang (cth: Tas)"
+            placeholder="Cari barang (cth: Panci)"
           />
         </div>
       </div>
@@ -454,28 +527,20 @@
             margin-bottom: 10px;
           "
         >
-          Menemukan <b id="count">0</b> Produk:
+          Menemukan <b id="count">0</b> Produk Siap Jual:
         </p>
         <div class="product-list" id="productList"></div>
 
-        <div
-          style="
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #999;
-          "
-        >
+        <div class="footer-brand">
           App by
-          <a
-            href="https://instagram.com/faset.digital"
-            style="color: var(--primary); text-decoration: none"
+          <a href="https://instagram.com/faset.digital" target="_blank"
             >@faset.digital</a
           >
         </div>
       </div>
     </div>
 
+    <!-- MODAL GENERATOR (HYBRID 3 MODE) -->
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span
@@ -489,8 +554,9 @@
           onclick="tutupModal('myModal')"
           >&times;</span
         >
-        <h3 style="text-align: center; margin-top: 0">⚙️ PILIH MODE CUAN</h3>
+        <h3 style="text-align: center; margin-top: 0">⚙️ PILIH MODE JUALAN</h3>
 
+        <!-- 3 TAB MODE -->
         <div class="tab-container">
           <div id="tabWA" class="tab-btn active wa" onclick="gantiMode('wa')">
             🟢 Dropship WA
@@ -503,10 +569,10 @@
           </div>
         </div>
 
+        <!-- TIPS & CAPTION -->
         <div id="tipsBox" class="tips-box">Loading...</div>
-
         <p style="font-size: 12px; font-weight: bold; margin-bottom: 5px">
-          CAPTION / DESKRIPSI:
+          CAPTION OTOMATIS:
         </p>
         <div class="copy-area" id="captionBox">Loading...</div>
         <button class="btn-action btn-copy" onclick="copyText()">
@@ -520,10 +586,13 @@
             padding-top: 15px;
             margin-top: 15px;
           "
-        ></div>
+        >
+          <!-- Tombol Action Muncul Disini -->
+        </div>
       </div>
     </div>
 
+    <!-- MODAL PANDUAN (FULL MONETIZE) -->
     <div id="modalPanduan" class="modal">
       <div class="modal-content">
         <span
@@ -537,38 +606,112 @@
           onclick="tutupModal('modalPanduan')"
           >&times;</span
         >
-        <h3 style="text-align: center; color: var(--primary)">
+        <h3
+          style="text-align: center; color: var(--primary); margin-bottom: 5px"
+        >
           🎓 AKADEMI CUAN
         </h3>
+        <p
+          style="
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 0;
+            margin-bottom: 20px;
+          "
+        >
+          Klik judul untuk baca caranya:
+        </p>
 
+        <!-- PANDUAN 1 -->
         <button class="accordion">1. Mode Dropship WA</button>
         <div class="panel">
-          <p>
-            Gunakan mode ini untuk jual ke teman/tetangga. Kamu ambil untung
-            CASH di depan dari selisih harga.
-          </p>
+          <p>Gunakan mode ini untuk jual ke teman/tetangga.</p>
+          <ol style="padding-left: 20px; margin: 10px 0">
+            <li>Isi nomor WA di halaman depan.</li>
+            <li>Copy Caption & Share ke Story WA.</li>
+            <li>Teman transfer ke kamu (Harga Jual).</li>
+            <li>Kamu order di Supplier (Harga Modal).</li>
+            <li>Selisih uang = Keuntunganmu (CASH).</li>
+          </ol>
+          <!-- UPSELL 1 -->
+          <div class="upsell-box">
+            <span class="upsell-title">💡 Mau teman berebut beli?</span>
+            <a
+              href="https://wa.me/6281385042303?text=Halo%20Admin,%20saya%20mau%20beli%20Ebook%20Jago%20Jualan%20WA%2049rb."
+              class="btn-ebook"
+              >📘 BELI EBOOK "WA MARKETING" <span>RP 49.000</span></a
+            >
+          </div>
         </div>
 
+        <!-- PANDUAN 2 -->
         <button class="accordion">2. Mode Shopee Video</button>
         <div class="panel">
-          <p>
-            Upload video di Shopee Video, tautkan Keranjang Oranye. Gunakan
-            tombol "Cari di Shopee" untuk ambil link produknya.
-          </p>
+          <p>Upload video di Shopee Video, tautkan Keranjang Oranye.</p>
+          <ol style="padding-left: 20px; margin: 10px 0">
+            <li>Klik "Cari di Shopee" untuk ambil Link Affiliate kamu.</li>
+            <li>Upload Video, tempel link, dapat komisi!</li>
+          </ol>
+          <!-- UPSELL 2 -->
+          <div class="upsell-box">
+            <span class="upsell-title">💡 Masih bingung Shopee Affiliate?</span>
+            <a
+              href="https://wa.me/6281385042303?text=Halo%20Admin,%20saya%20mau%20beli%20Panduan%20Shopee%20Affiliate%2049rb."
+              class="btn-ebook"
+              >📙 PANDUAN LENGKAP SHOPEE <span>RP 49.000</span></a
+            >
+          </div>
         </div>
 
+        <!-- PANDUAN 3 -->
         <button class="accordion">3. Mode TikTok Shop</button>
         <div class="panel">
-          <p>TikTok tidak bisa buka link produk langsung. Caranya:</p>
-          <p>1. Klik tombol <b>COPY NAMA PRODUK</b>.</p>
-          <p>2. Klik tombol <b>BUKA TIKTOK</b>.</p>
-          <p>
-            3. Di TikTok, Masuk ke Shop > Marketplace > Paste nama produk tadi.
+          <p>TikTok butuh trik khusus karena tidak ada link langsung.</p>
+          <ol style="padding-left: 20px; margin: 10px 0">
+            <li>Klik tombol <b>COPY NAMA PRODUK</b>.</li>
+            <li>Klik tombol <b>BUKA TIKTOK</b>.</li>
+            <li>Masuk menu Shop > Marketplace > Paste nama produk.</li>
+            <li>Tambahkan ke Showcase & Posting video.</li>
+          </ol>
+          <!-- UPSELL 3 -->
+          <div class="upsell-box">
+            <span class="upsell-title"
+              >💡 Mau video FYP & Keranjang Kuning meledak?</span
+            >
+            <a
+              href="https://wa.me/6281385042303?text=Halo%20Admin,%20saya%20mau%20beli%20Ebook%20Rahasia%20FYP%2049rb."
+              class="btn-ebook"
+              >🎵 KITAB RAHASIA TIKTOK <span>RP 49.000</span></a
+            >
+          </div>
+        </div>
+
+        <div
+          style="
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+          "
+        >
+          <p style="font-size: 11px; color: #888; margin-bottom: 10px">
+            Mau beli semua Ebook? Hemat 50%!
           </p>
-          <p>
-            4. Tambahkan ke Showcase kamu, lalu tautkan ke video (Keranjang
-            Kuning).
-          </p>
+          <a
+            href="https://wa.me/6281385042303?text=Halo%20Admin,%20saya%20mau%20beli%20PAKET%20LENGKAP%20SEMUA%20EBOOK%20seharga%2099rb."
+            style="
+              background: #4f46e5;
+              color: white;
+              padding: 10px 15px;
+              border-radius: 50px;
+              font-size: 12px;
+              font-weight: bold;
+              text-decoration: none;
+              display: inline-block;
+            "
+            >📦 BELI PAKET LENGKAP (Rp 99.000)</a
+          >
         </div>
       </div>
     </div>
@@ -595,23 +738,21 @@
         }
       })();
 
-      // === VARIABLES ===
+      // === VARIABLES & STORAGE ===
       let currentItem = null;
       let currentMode = "wa";
 
-      // === ELEMENTS ===
       const phoneInput = document.getElementById("userPhone");
-
-      // WA Storage
       if (localStorage.getItem("userWA"))
         phoneInput.value = localStorage.getItem("userWA");
+
       phoneInput.addEventListener("input", (e) => {
         let val = e.target.value;
         if (val.startsWith("08")) val = "628" + val.slice(2);
         localStorage.setItem("userWA", val);
       });
 
-      // Load Data
+      // === LOAD DATA ===
       if (typeof dataSupplier !== "undefined") {
         renderProduk(dataSupplier.sort(() => 0.5 - Math.random()).slice(0, 50));
       }
@@ -644,7 +785,7 @@
         });
       }
 
-      // === LOGIC MODAL ===
+      // === LOGIC MODAL & GENERATOR ===
       function openModal(id) {
         currentItem = dataSupplier.find((x) => x.id === id);
         document.getElementById("myModal").style.display = "block";
@@ -666,118 +807,61 @@
         updateContent();
       }
 
-      // === INI OTAK PINTARNYA ===
       function updateContent() {
         if (!currentItem) return;
         const tips = document.getElementById("tipsBox");
         const action = document.getElementById("actionArea");
 
-        // 1. CARI JODOH KATEGORI (LEBIH PINTAR)
+        // 1. SMART MATCHING CATEGORY
         let catContent = "umum";
         const k = currentItem.kategori.toLowerCase();
         const n = currentItem.nama.toLowerCase();
 
-        // Mapping keyword supplier -> keyword konten
-        if (
-          k.includes("tas") ||
-          k.includes("dompet") ||
-          n.includes("bag") ||
-          n.includes("wallet")
-        )
-          catContent = "fashion";
-        else if (
-          k.includes("jam") ||
-          k.includes("watch") ||
-          k.includes("kacamata")
-        )
+        if (k.includes("tas") || k.includes("dompet") || n.includes("bag"))
           catContent = "fashion";
         else if (
           k.includes("baju") ||
-          k.includes("kemeja") ||
-          k.includes("kaos") ||
-          k.includes("dress") ||
-          k.includes("celana")
-        )
-          catContent = "fashion";
-        else if (
-          k.includes("sepatu") ||
-          k.includes("sandal") ||
-          n.includes("shoes")
+          k.includes("pakaian") ||
+          k.includes("sepatu")
         )
           catContent = "fashion";
         else if (
           n.includes("serum") ||
           n.includes("cream") ||
-          n.includes("wajah") ||
-          n.includes("kulit") ||
           k.includes("kecantikan")
         )
           catContent = "skincare";
         else if (
           n.includes("panci") ||
-          n.includes("pisau") ||
           n.includes("rak") ||
-          n.includes("pel") ||
           k.includes("rumah")
         )
           catContent = "rumah_tangga";
-        else if (n.includes("buku") || n.includes("alat tulis"))
-          catContent = "pengembangan_diri";
-        else if (
-          n.includes("obat") ||
-          n.includes("vitamin") ||
-          n.includes("herbal")
-        )
+        else if (n.includes("obat") || n.includes("vitamin"))
           catContent = "kesehatan";
-        else if (
-          n.includes("uang") ||
-          n.includes("voucher") ||
-          n.includes("pulsa")
-        )
-          catContent = "finansial";
 
-        // Filter Konten
+        // Filter
         let pool = dataKonten.filter((x) => x.kategori.includes(catContent));
+        let content =
+          pool.length > 0
+            ? pool[currentItem.id % pool.length]
+            : {
+                hook: "🔥 RACUN TIKTOK CHECK!",
+                caption:
+                  "Jujurly barang ini kepake banget. Nyesel kalau gak punya.",
+                hashtag: "#racunshopee #viral",
+              };
 
-        // FALLBACK: Kalau gak nemu konten spesifik, pake mode "Hard Selling Universal"
-        // Biar gak maksa pake konten tips yang gak nyambung
-        let content = null;
-        let isUniversal = false;
+        // 2. BRIDGING SENTENCE (Supaya nyambung)
+        const bridges = [
+          `Nah, biar makin pas sama tips di atas, Kakak wajib punya **${currentItem.nama}** ini!`,
+          `Salah satu solusinya ya pakai **${currentItem.nama}** ini, Kak. Dijamin worth it!`,
+          `Mumpung lagi promo, **${currentItem.nama}** ini cocok banget buat praktekin tips tadi.`,
+        ];
+        const bridge = bridges[Math.floor(Math.random() * bridges.length)];
 
-        if (pool.length === 0) {
-          isUniversal = true;
-          content = {
-            hook: "🔥 RACUN TIKTOK CHECK!",
-            caption:
-              "Jujurly ini barang bagus banget sih. Nyesel kalau gak punya sekarang.",
-            hashtag: "#racunshopee #tiktokshop #viral",
-          };
-        } else {
-          content = pool[currentItem.id % pool.length];
-        }
-
-        // 2. RAKIT KALIMAT (BRIDGING)
-        // Biar nyambung, kita selipin nama produk di antara Tips dan Link
-        let bridgingSentence = "";
-        if (!isUniversal) {
-          // Kalimat penyambung biar luwes
-          const bridges = [
-            `Nah, biar makin pas sama tips di atas, Kakak wajib punya **${currentItem.nama}** ini!`,
-            `Salah satu solusinya ya pakai **${currentItem.nama}** ini, Kak. Dijamin worth it!`,
-            `Mumpung lagi promo, **${currentItem.nama}** ini cocok banget buat praktekin tips tadi.`,
-            `Gak perlu bingung lagi, langsung aja checkout **${currentItem.nama}** biar masalah tadi beres!`,
-          ];
-          bridgingSentence =
-            bridges[Math.floor(Math.random() * bridges.length)];
-        } else {
-          bridgingSentence = `Langsung aja kepoin **${currentItem.nama}** nya sekarang juga!`;
-        }
-
-        // 3. GENERATE FINAL TEKS SESUAI MODE
-        let finalTeks = "";
-
+        // 3. GENERATE TEXT BASED ON MODE
         if (currentMode === "wa") {
-          // MODE DROPSHIP WA
           let wa = localStorage.getItem("userWA") || "";
           let linkWA =
             wa.length > 5
@@ -790,79 +874,48 @@
           tips.style.color = "#166534";
           tips.innerHTML = `💡 <b>DROPSHIP:</b> Jual ke teman/grup WA. Kamu dapet CASH di depan.`;
 
-          finalTeks = `
-${content.hook}
-
-${content.caption}
-
-${bridgingSentence}
-
-🔥 HARGA PROMO: Rp ${new Intl.NumberFormat("id-ID").format(
+          document.getElementById("captionBox").innerText = `${
+            content.hook
+          }\n\n${
+            content.caption
+          }\n\n${bridge}\n\n🔥 HARGA PROMO: Rp ${new Intl.NumberFormat(
+            "id-ID"
+          ).format(
             currentItem.harga_jual_saran
-          )}
-(Normal: Rp ${new Intl.NumberFormat("id-ID").format(
+          )}\n(Normal: Rp ${new Intl.NumberFormat("id-ID").format(
             currentItem.harga_jual_saran * 1.5
-          )})
-
-Buruan pesen sebelum kehabisan!
-Klik link ini buat Order via WA 👇:
-${linkWA}
-
-${content.hashtag}
-                `.trim();
-
+          )})\n\nBuruan pesen sebelum kehabisan!\nKlik link ini buat Order via WA 👇:\n${linkWA}\n\n${
+            content.hashtag
+          }`;
           action.innerHTML = `<button class="btn-action btn-supplier" onclick="window.open('${currentItem.link_toko}')">🛒 BELI DI SUPPLIER (SHOPEE)</button>`;
         } else if (currentMode === "shopee") {
-          // MODE SHOPEE VIDEO
           tips.style.background = "#ffedd5";
           tips.style.color = "#9a3412";
           tips.innerHTML = `🎥 <b>SHOPEE VID:</b> Cari barang ini di Shopee, ambil link affiliate kamu.`;
 
-          finalTeks = `
-${content.hook}
-
-${content.caption}
-
-${bridgingSentence}
-
-Cek Keranjang Oranye ya! 👆
-Jangan sampai kehabisan promonya bestie! ✨
-
-${content.hashtag} #shopeevideo #racunshopee
-                `.trim();
-
+          document.getElementById(
+            "captionBox"
+          ).innerText = `${content.hook}\n\n${content.caption}\n\n${bridge}\n\nCek Keranjang Oranye ya! 👆\nJangan sampai kehabisan promonya bestie! ✨\n\n${content.hashtag} #shopeevideo #racunshopee`;
           const searchLink = `https://shopee.co.id/search?keyword=${encodeURIComponent(
             currentItem.nama
           )}`;
           action.innerHTML = `<button class="btn-action btn-shopee" onclick="window.open('${searchLink}')">🔎 CARI BARANG DI SHOPEE (AMBIL LINK)</button>`;
         } else {
-          // MODE TIKTOK SHOP
           tips.style.background = "#f3f4f6";
           tips.style.color = "#1f2937";
           tips.innerHTML = `🎵 <b>TIKTOK:</b> Copy nama produk, cari manual di TikTok Shop.`;
 
-          finalTeks = `
-${content.hook}
-
-${content.caption}
-
-${bridgingSentence}
-
-Cek Keranjang Kuning! 👆
-Mumpung lagi ada promo gratis ongkir lho!
-
-${content.hashtag} #tiktokshop #fyp #racuntiktok
-                `.trim();
-
+          document.getElementById(
+            "captionBox"
+          ).innerText = `${content.hook}\n\n${content.caption}\n\n${bridge}\n\nCek Keranjang Kuning! 👆\nMumpung lagi ada promo gratis ongkir lho!\n\n${content.hashtag} #tiktokshop #fyp #racuntiktok`;
           action.innerHTML = `
                     <button class="btn-action btn-copy" style="margin-bottom:10px;" onclick="copyNamaProduk()">📋 COPY NAMA PRODUK</button>
                     <button class="btn-action btn-tiktok" onclick="window.open('https://www.tiktok.com/')">🎵 BUKA APLIKASI TIKTOK</button>
                 `;
         }
-
-        document.getElementById("captionBox").innerText = finalTeks;
       }
 
+      // === UTILS ===
       function copyText() {
         navigator.clipboard.writeText(
           document.getElementById("captionBox").innerText
@@ -885,7 +938,14 @@ ${content.hashtag} #tiktokshop #fyp #racuntiktok
       function tutupModal(id) {
         document.getElementById(id).style.display = "none";
       }
+      window.onclick = (e) => {
+        if (e.target == document.getElementById("myModal"))
+          tutupModal("myModal");
+        if (e.target == document.getElementById("modalPanduan"))
+          tutupModal("modalPanduan");
+      };
 
+      // Accordion Panduan
       const acc = document.getElementsByClassName("accordion");
       for (let i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function () {
